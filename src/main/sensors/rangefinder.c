@@ -216,7 +216,7 @@ timeDelta_t rangefinderUpdate(void)
         rangefinder.dev.update(&rangefinder.dev);
     }
 
-    return rangefinder.dev.delayMs * 1000;  // to microseconds
+    return MS2US(rangefinder.dev.delayMs);
 }
 
 /**
