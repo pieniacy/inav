@@ -35,6 +35,9 @@
 
 #define INAV_SURFACE_MAX_DISTANCE           40
 
+#define MAX_POSITION_UPDATE_INTERVAL_US     HZ2US(MIN_POSITION_UPDATE_RATE_HZ)        // convenience macro
+_Static_assert(MAX_POSITION_UPDATE_INTERVAL_US <= TIMEDELTA_MAX, "deltaMicros can overflow!");
+
 typedef enum {
     NAV_POS_UPDATE_NONE                 = 0,
     NAV_POS_UPDATE_Z                    = 1 << 1,
@@ -387,13 +390,13 @@ const navEstimatedPosVel_t * navGetCurrentActualPositionAndVelocity(void);
 
 float navPidApply2(pidController_t *pid, const float setpoint, const float measurement, const float dt, const float outMin, const float outMax, const pidControllerFlags_e pidFlags);
 float navPidApply3(
-    pidController_t *pid, 
-    const float setpoint, 
-    const float measurement, 
-    const float dt, 
-    const float outMin, 
-    const float outMax, 
-    const pidControllerFlags_e pidFlags, 
+    pidController_t *pid,
+    const float setpoint,
+    const float measurement,
+    const float dt,
+    const float outMin,
+    const float outMax,
+    const pidControllerFlags_e pidFlags,
     const float gainScaler,
     const float dTermScaler
 );
